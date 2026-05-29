@@ -3,28 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"runtime"
-	"syscall"
 )
-
-var (
-	user32         *syscall.LazyDLL
-	procKeybdEvent *syscall.LazyProc
-)
-
-const (
-	vkControl      = 0x11
-	vkShift        = 0x10
-	vkF12          = 0x7B
-	keyeventfKeyUp = 0x0002
-)
-
-func init() {
-	if runtime.GOOS == "windows" {
-		user32 = syscall.NewLazyDLL("user32.dll")
-		procKeybdEvent = user32.NewProc("keybd_event")
-	}
-}
 
 // App struct
 type App struct {
@@ -65,27 +44,17 @@ func (a *App) SetDevToolsState(open bool) {
 	saveIniFileOptions(opts)
 }
 
-func (a *App) toggleDevToolsNative() {
-	if runtime.GOOS == "windows" && procKeybdEvent != nil {
-		// Press Control
-		procKeybdEvent.Call(vkControl, 0, 0, 0)
-		// Press Shift
-		procKeybdEvent.Call(vkShift, 0, 0, 0)
-		// Press F12
-		procKeybdEvent.Call(vkF12, 0, 0, 0)
-
-		// Release F12
-		procKeybdEvent.Call(vkF12, 0, keyeventfKeyUp, 0)
-		// Release Shift
-		procKeybdEvent.Call(vkShift, 0, keyeventfKeyUp, 0)
-		// Release Control
-		procKeybdEvent.Call(vkControl, 0, keyeventfKeyUp, 0)
+// ToggleDevTools toggles the devTools option state programmatically and returns the new state
+func (a *App) ToggleDevTools() bool {
+	opts, err := loadIniFileOptions()
+	var currentDevTools bool
+	if err == nil && opts != nil {
+		currentDevTools = opts.DevTools
 	}
-}
 
-// ToggleDevTools toggles the devTools option state programmatically in the current session
-func (a *App) ToggleDevTools() {
-	a.toggleDevToolsNative()
+	nextState := !currentDevTools
+	a.SetDevToolsState(nextState)
+	return nextState
 }
 
 // shutdown is called at application termination
