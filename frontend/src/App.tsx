@@ -1,5 +1,5 @@
-import wailsLogo from './assets/wails.png'
-import './App.css'
+import wailsLogo from './assets/wails.png';
+import './App.css';
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
                 </a>
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

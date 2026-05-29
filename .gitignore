@@ -22,16 +22,6 @@
 /frontend/.next/
 /frontend/out/
 
-# IDEs and Editors
-/.vscode/
-/.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.swp
-*~
-
 # Operating System files
 .DS_Store
 Thumbs.db
