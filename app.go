@@ -44,8 +44,8 @@ func (a *App) SetDevToolsState(open bool) {
 	saveIniFileOptions(opts)
 }
 
-// ToggleDevTools toggles the devTools option state programmatically
-func (a *App) ToggleDevTools() {
+// ToggleDevTools toggles the devTools option state programmatically and returns the new state
+func (a *App) ToggleDevTools() bool {
 	opts, err := loadIniFileOptions()
 	var currentDevTools bool
 	if err == nil && opts != nil {
@@ -54,6 +54,7 @@ func (a *App) ToggleDevTools() {
 
 	nextState := !currentDevTools
 	a.SetDevToolsState(nextState)
+	return nextState
 }
 
 // shutdown is called at application termination
