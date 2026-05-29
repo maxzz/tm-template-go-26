@@ -6,14 +6,10 @@ import (
 	"strings"
 	"syscall"
 	"unsafe"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-// platformOpenDevTools opens the WebView2 DevTools window using the
-// chrome.webview JS API that WebView2 exposes on Windows.
-func (a *App) platformOpenDevTools() {
-	runtime.WindowExecJS(a.ctx, "window.chrome.webview.openDevToolsWindow()")
+func (a *App) platformIsDevToolsOpen() bool {
+	return len(findDevToolsWindows()) > 0
 }
 
 // platformCloseDevTools finds any top-level window whose class is
@@ -21,12 +17,22 @@ func (a *App) platformOpenDevTools() {
 // whose title contains "DevTools", then sends it WM_CLOSE.
 func (a *App) platformCloseDevTools() {
 	user32 := syscall.NewLazyDLL("user32.dll")
-	enumWindows := user32.NewProc("EnumWindows")
-	getWindowTextW := user32.NewProc("GetWindowTextW")
-	getClassNameW := user32.NewProc("GetClassNameW")
 	postMessageW := user32.NewProc("PostMessageW")
 
 	const WM_CLOSE = 0x0010
+
+	for _, hwnd := range findDevToolsWindows() {
+		postMessageW.Call(uintptr(hwnd), WM_CLOSE, 0, 0)
+	}
+}
+
+func findDevToolsWindows() []syscall.Handle {
+	user32 := syscall.NewLazyDLL("user32.dll")
+	enumWindows := user32.NewProc("EnumWindows")
+	getWindowTextW := user32.NewProc("GetWindowTextW")
+	getClassNameW := user32.NewProc("GetClassNameW")
+
+	var handles []syscall.Handle
 
 	cb := syscall.NewCallback(func(hwnd syscall.Handle, _ uintptr) uintptr {
 		// Filter by Chromium window class to avoid touching unrelated windows.
@@ -40,10 +46,11 @@ func (a *App) platformCloseDevTools() {
 		titleBuf := make([]uint16, 512)
 		getWindowTextW.Call(uintptr(hwnd), uintptr(unsafe.Pointer(&titleBuf[0])), 512)
 		if strings.Contains(syscall.UTF16ToString(titleBuf), "DevTools") {
-			postMessageW.Call(uintptr(hwnd), WM_CLOSE, 0, 0)
+			handles = append(handles, hwnd)
 		}
 		return 1 // continue enumeration
 	})
 
 	enumWindows.Call(cb, 0)
+	return handles
 }

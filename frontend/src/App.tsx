@@ -6,7 +6,8 @@ import { ToggleDevTools } from '../wailsjs/go/main/App';
 export function App() {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            const isDevToolsShortcut = e.code === 'F12' || (e.ctrlKey && e.shiftKey && e.code === 'KeyI');
+            if (isDevToolsShortcut) {
                 ToggleDevTools().catch(console.error);
             }
         };

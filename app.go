@@ -3,14 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"sync"
 )
 
 // App struct
 type App struct {
-	ctx          context.Context
-	devToolsOpen bool
-	mu           sync.Mutex
+	ctx context.Context
 }
 
 // NewApp creates a new App application struct
@@ -21,13 +18,6 @@ func NewApp() *App {
 // startup is called at application startup
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	// Initialise in-memory state from the ini file so the first toggle goes the right direction.
-	opts, err := loadIniFileOptions()
-	if err == nil && opts != nil {
-		a.mu.Lock()
-		a.devToolsOpen = opts.DevTools
-		a.mu.Unlock()
-	}
 }
 
 // domReady is called after front-end resources have been loaded
@@ -45,27 +35,18 @@ func (a *App) beforeClose(ctx context.Context) (prevent bool) {
 
 // SetDevToolsState sets DevTools state explicitly and persists it to the ini file.
 func (a *App) SetDevToolsState(open bool) {
-	a.mu.Lock()
-	a.devToolsOpen = open
-	a.mu.Unlock()
-
 	a.saveDevToolsState(open)
 }
 
 // ToggleDevTools flips DevTools visibility and persists the new state to the ini file.
 func (a *App) ToggleDevTools() {
-	a.mu.Lock()
-	a.devToolsOpen = !a.devToolsOpen
-	open := a.devToolsOpen
-	a.mu.Unlock()
-
-	if open {
-		a.platformOpenDevTools()
-	} else {
+	if a.platformIsDevToolsOpen() {
 		a.platformCloseDevTools()
+		a.SetDevToolsState(false)
+		return
 	}
 
-	a.saveDevToolsState(open)
+	a.SetDevToolsState(true)
 }
 
 func (a *App) saveDevToolsState(open bool) {
