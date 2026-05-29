@@ -5,4 +5,4 @@ export function Greet(arg1:string):Promise<string>;
 
 export function SetDevToolsState(arg1:boolean):Promise<void>;
 
-export function ToggleDevTools():Promise<boolean>;
+export function ToggleDevTools():Promise<void>;
