@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"reflect"
+	"unsafe"
 )
 
 // App struct
@@ -44,8 +46,43 @@ func (a *App) SetDevToolsState(open bool) {
 	saveIniFileOptions(opts)
 }
 
-// ToggleDevTools toggles the devTools option state programmatically and returns the new state
-func (a *App) ToggleDevTools() bool {
+func (a *App) openDevToolsNative() {
+	if a.ctx == nil {
+		return
+	}
+	fe := a.ctx.Value("frontend")
+	if fe == nil {
+		return
+	}
+
+	// Use reflection to inspect the frontend struct
+	val := reflect.ValueOf(fe)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
+	}
+	if val.Kind() != reflect.Struct {
+		return
+	}
+
+	// Find the chromium field (on Windows)
+	chromField := val.FieldByName("chromium")
+	if chromField.IsValid() {
+		// Create a readable reflect.Value for the unexported field using unsafe
+		ptr := unsafe.Pointer(chromField.UnsafeAddr())
+		exportedChromField := reflect.NewAt(chromField.Type(), ptr).Elem()
+		chromVal := exportedChromField.Interface()
+		if chromVal != nil {
+			// Call OpenDevToolsWindow method dynamically
+			method := reflect.ValueOf(chromVal).MethodByName("OpenDevToolsWindow")
+			if method.IsValid() {
+				method.Call(nil)
+			}
+		}
+	}
+}
+
+// ToggleDevTools toggles the devTools option state programmatically in the current session
+func (a *App) ToggleDevTools() {
 	opts, err := loadIniFileOptions()
 	var currentDevTools bool
 	if err == nil && opts != nil {
@@ -54,7 +91,10 @@ func (a *App) ToggleDevTools() bool {
 
 	nextState := !currentDevTools
 	a.SetDevToolsState(nextState)
-	return nextState
+
+	if nextState {
+		a.openDevToolsNative()
+	}
 }
 
 // shutdown is called at application termination
