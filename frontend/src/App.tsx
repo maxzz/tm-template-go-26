@@ -1,7 +1,19 @@
+import { useEffect } from 'react';
 import wailsLogo from './assets/wails.png';
 import './App.css';
+import { ToggleDevTools } from '../wailsjs/go/main/App';
 
 export function App() {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                ToggleDevTools().catch(console.error);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     return (
         <div className="min-h-screen bg-white grid grid-cols-1 place-items-center justify-items-center mx-auto py-8">
             <div className="text-blue-900 text-2xl font-bold font-mono">

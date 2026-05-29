@@ -5,3 +5,11 @@
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
+
+export function SetDevToolsState(arg1) {
+  return window['go']['main']['App']['SetDevToolsState'](arg1);
+}
+
+export function ToggleDevTools() {
+  return window['go']['main']['App']['ToggleDevTools']();
+}

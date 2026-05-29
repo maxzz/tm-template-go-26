@@ -22,16 +22,38 @@ func (a *App) startup(ctx context.Context) {
 }
 
 // domReady is called after front-end resources have been loaded
-func (a App) domReady(ctx context.Context) {
-	// Add your action here
+func (a *App) domReady(ctx context.Context) {
+	restoreWindowOptions(ctx)
 }
 
 // beforeClose is called when the application is about to quit,
 // either by clicking the window close button or calling runtime.Quit.
 // Returning true will cause the application to continue, false will continue shutdown as normal.
-// func (a *App) beforeClose(ctx context.Context) (prevent bool) {
-func (a *App) beforeClose() (prevent bool) {
+func (a *App) beforeClose(ctx context.Context) (prevent bool) {
+	saveWindowOptions(ctx)
 	return false
+}
+
+// SetDevToolsState is called by frontend to update the devTools state in options
+func (a *App) SetDevToolsState(open bool) {
+	opts, err := loadIniFileOptions()
+	if err != nil {
+		opts = &IniOptions{}
+	}
+	opts.DevTools = open
+	saveIniFileOptions(opts)
+}
+
+// ToggleDevTools toggles the devTools option state programmatically
+func (a *App) ToggleDevTools() {
+	opts, err := loadIniFileOptions()
+	var currentDevTools bool
+	if err == nil && opts != nil {
+		currentDevTools = opts.DevTools
+	}
+
+	nextState := !currentDevTools
+	a.SetDevToolsState(nextState)
 }
 
 // shutdown is called at application termination
