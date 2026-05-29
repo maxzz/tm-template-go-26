@@ -1,7 +1,7 @@
 import wailsLogo from './assets/wails.png';
 import './App.css';
 
-function App() {
+export function App() {
     return (
         <div className="min-h-screen bg-white grid grid-cols-1 place-items-center justify-items-center mx-auto py-8">
             <div className="text-blue-900 text-2xl font-bold font-mono">
@@ -15,5 +15,3 @@ function App() {
         </div>
     );
 }
-
-export default App;
