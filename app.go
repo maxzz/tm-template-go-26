@@ -17,7 +17,6 @@ func NewApp() *App {
 
 // startup is called at application startup
 func (a *App) startup(ctx context.Context) {
-	// Perform your setup here
 	a.ctx = ctx
 }
 
@@ -34,8 +33,23 @@ func (a *App) beforeClose(ctx context.Context) (prevent bool) {
 	return false
 }
 
-// SetDevToolsState is called by frontend to update the devTools state in options
+// SetDevToolsState sets DevTools state explicitly and persists it to the ini file.
 func (a *App) SetDevToolsState(open bool) {
+	a.saveDevToolsState(open)
+}
+
+// ToggleDevTools flips DevTools visibility and persists the new state to the ini file.
+func (a *App) ToggleDevTools() {
+	if a.platformIsDevToolsOpen() {
+		a.platformCloseDevTools()
+		a.SetDevToolsState(false)
+		return
+	}
+
+	a.SetDevToolsState(true)
+}
+
+func (a *App) saveDevToolsState(open bool) {
 	opts, err := loadIniFileOptions()
 	if err != nil {
 		opts = &IniOptions{}
@@ -44,22 +58,8 @@ func (a *App) SetDevToolsState(open bool) {
 	saveIniFileOptions(opts)
 }
 
-// ToggleDevTools toggles the devTools option state programmatically
-func (a *App) ToggleDevTools() {
-	opts, err := loadIniFileOptions()
-	var currentDevTools bool
-	if err == nil && opts != nil {
-		currentDevTools = opts.DevTools
-	}
-
-	nextState := !currentDevTools
-	a.SetDevToolsState(nextState)
-}
-
 // shutdown is called at application termination
-func (a *App) shutdown(ctx context.Context) {
-	// Perform your teardown here
-}
+func (a *App) shutdown(ctx context.Context) {}
 
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
