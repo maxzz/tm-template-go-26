@@ -38,7 +38,7 @@ func main() {
 	}
 
 	err = wails.Run(&options.App{
-		Title:            "wails-events",
+		Title:            "wails template",
 		Width:            initialWidth,
 		Height:           initialHeight,
 		Assets:           assets,
