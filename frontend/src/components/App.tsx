@@ -7,7 +7,7 @@ export function App() {
     useEffect(
         () => {
             function handleKeyDown(e: KeyboardEvent) {
-                const isDevToolsShortcut = e.code === 'F12' || (e.ctrlKey && e.shiftKey && e.code === 'KeyI');
+                const isDevToolsShortcut = (e.ctrlKey && e.shiftKey && e.code === 'F12') || (e.ctrlKey && e.shiftKey && e.code === 'KeyI');
                 if (isDevToolsShortcut) {
                     ToggleDevTools().catch(console.error);
                 }

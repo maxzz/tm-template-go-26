@@ -22,14 +22,14 @@ func (a *App) Startup(ctx context.Context) {
 
 // DomReady is called after front-end resources have been loaded
 func (a *App) DomReady(ctx context.Context) {
-	restoreWindowOptions(ctx)
+	a.restoreWindowOptions(ctx)
 }
 
 // BeforeClose is called when the application is about to quit,
 // either by clicking the window close button or calling runtime.Quit.
 // Returning true will cause the application to continue, false will continue shutdown as normal.
 func (a *App) BeforeClose(ctx context.Context) (prevent bool) {
-	saveWindowOptions(ctx)
+	a.saveWindowOptions(ctx)
 	return false
 }
 

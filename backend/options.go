@@ -78,7 +78,7 @@ func FixBounds(bounds *Rectangle) *Rectangle {
 	return bounds
 }
 
-func saveWindowOptions(ctx context.Context) {
+func (a *App) saveWindowOptions(ctx context.Context) {
 	// 1. Get current window state
 	isMaximized := runtime.WindowIsMaximised(ctx)
 
@@ -101,12 +101,11 @@ func saveWindowOptions(ctx context.Context) {
 	}
 
 	// 2. DevTools & ShowMenu state
-	var devTools bool
+	devTools := a.platformIsDevToolsOpen()
 	var showMenu bool
 
 	existing, err := LoadIniFileOptions()
 	if err == nil && existing != nil {
-		devTools = existing.DevTools
 		showMenu = existing.ShowMenu
 	}
 
@@ -119,7 +118,7 @@ func saveWindowOptions(ctx context.Context) {
 	saveIniFileOptions(opts)
 }
 
-func restoreWindowOptions(ctx context.Context) {
+func (a *App) restoreWindowOptions(ctx context.Context) {
 	opts, err := LoadIniFileOptions()
 	if err == nil && opts != nil {
 		if opts.Bounds != nil {
