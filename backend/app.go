@@ -1,4 +1,4 @@
-package main
+package backend
 
 import (
 	"context"
@@ -15,20 +15,20 @@ func NewApp() *App {
 	return &App{}
 }
 
-// startup is called at application startup
-func (a *App) startup(ctx context.Context) {
+// Startup is called at application startup
+func (a *App) Startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// domReady is called after front-end resources have been loaded
-func (a *App) domReady(ctx context.Context) {
+// DomReady is called after front-end resources have been loaded
+func (a *App) DomReady(ctx context.Context) {
 	restoreWindowOptions(ctx)
 }
 
-// beforeClose is called when the application is about to quit,
+// BeforeClose is called when the application is about to quit,
 // either by clicking the window close button or calling runtime.Quit.
 // Returning true will cause the application to continue, false will continue shutdown as normal.
-func (a *App) beforeClose(ctx context.Context) (prevent bool) {
+func (a *App) BeforeClose(ctx context.Context) (prevent bool) {
 	saveWindowOptions(ctx)
 	return false
 }
@@ -50,7 +50,7 @@ func (a *App) ToggleDevTools() {
 }
 
 func (a *App) saveDevToolsState(open bool) {
-	opts, err := loadIniFileOptions()
+	opts, err := LoadIniFileOptions()
 	if err != nil {
 		opts = &IniOptions{}
 	}

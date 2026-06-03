@@ -1,4 +1,4 @@
-package main
+package backend
 
 import (
 	"context"
@@ -35,7 +35,7 @@ func getIniFilePath() (string, error) {
 	return filepath.Join(appDir, "init.json"), nil
 }
 
-func loadIniFileOptions() (*IniOptions, error) {
+func LoadIniFileOptions() (*IniOptions, error) {
 	filePath, err := getIniFilePath()
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func saveIniFileOptions(opts *IniOptions) error {
 	return os.WriteFile(filePath, data, 0644)
 }
 
-func fixBounds(bounds *Rectangle) *Rectangle {
+func FixBounds(bounds *Rectangle) *Rectangle {
 	if bounds == nil {
 		return nil
 	}
@@ -94,7 +94,7 @@ func saveWindowOptions(ctx context.Context) {
 		}
 	} else {
 		// If maximized, try to load existing bounds from file so we don't lose normal bounds
-		existing, err := loadIniFileOptions()
+		existing, err := LoadIniFileOptions()
 		if err == nil && existing != nil && existing.Bounds != nil {
 			bounds = existing.Bounds
 		}
@@ -104,7 +104,7 @@ func saveWindowOptions(ctx context.Context) {
 	var devTools bool
 	var showMenu bool
 
-	existing, err := loadIniFileOptions()
+	existing, err := LoadIniFileOptions()
 	if err == nil && existing != nil {
 		devTools = existing.DevTools
 		showMenu = existing.ShowMenu
@@ -120,10 +120,10 @@ func saveWindowOptions(ctx context.Context) {
 }
 
 func restoreWindowOptions(ctx context.Context) {
-	opts, err := loadIniFileOptions()
+	opts, err := LoadIniFileOptions()
 	if err == nil && opts != nil {
 		if opts.Bounds != nil {
-			bounds := fixBounds(opts.Bounds)
+			bounds := FixBounds(opts.Bounds)
 			if bounds != nil {
 				runtime.WindowSetPosition(ctx, bounds.X, bounds.Y)
 				runtime.WindowSetSize(ctx, bounds.Width, bounds.Height)

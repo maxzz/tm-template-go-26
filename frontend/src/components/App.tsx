@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
-import { ToggleDevTools } from '../../wailsjs/go/main/App';
+import { ToggleDevTools } from '../../wailsjs/go/backend/App';
 // import wailsLogo from './assets/wails.png';
 
 export function App() {
 
     useEffect(
         () => {
-
             function handleKeyDown(e: KeyboardEvent) {
                 const isDevToolsShortcut = e.code === 'F12' || (e.ctrlKey && e.shiftKey && e.code === 'KeyI');
                 if (isDevToolsShortcut) {
                     ToggleDevTools().catch(console.error);
                 }
             }
+            
             const controller = new AbortController();
             window.addEventListener('keydown', handleKeyDown, { signal: controller.signal });
             return () => controller.abort();
