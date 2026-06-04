@@ -15,8 +15,12 @@
         "vite": "^8.0.14"
     },
     "dependencies": {
+        "jotai": "^2.20.0",
+        "jotai-effect": "^2.3.1",
+        "jotai-valtio": "^0.6.0",
         "react": "^19.2.6",
-        "react-dom": "^19.2.6"
+        "react-dom": "^19.2.6",
+        "valtio": "^2.3.2"
     },
     "scripts": {
         "dev": "vite",
