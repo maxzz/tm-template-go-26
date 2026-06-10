@@ -1,6 +1,6 @@
 {
     "name": "tm-template-go-26",
-    "description": "Wails template which includes: Vite, React, TS, TailwindCSS out of the box.",
+    "description": "Wails template which includes: WebView2, Vite, React, TS, TailwindCSS out of the box",
     "homepage": "https://maxzz.github.io/tm-template-go-26",
     "repository": {
         "type": "git",
