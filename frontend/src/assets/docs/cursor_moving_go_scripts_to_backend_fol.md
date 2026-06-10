@@ -84,7 +84,7 @@ In this approach, you keep `main.go`, `go.mod`, `go.sum`, and `wails.json` in th
 
    import (
        "embed"
-       "to-diag-trace-go/backend" // Import your backend package
+       "tm-template-go-26/backend" // Import your backend package
 
        "github.com/wailsapp/wails/v2"
        "github.com/wailsapp/wails/v2/pkg/options"
@@ -176,7 +176,7 @@ package main
 
 import (
 	"embed"
-	"to-diag-trace-go/backend" // Imported the new backend package
+	"tm-template-go-26/backend" // Imported the new backend package
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"

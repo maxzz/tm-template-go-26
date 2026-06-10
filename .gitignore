@@ -1,12 +1,12 @@
 # Wails / Go binaries and build outputs
 /build/bin/
 /build/darwin/*.app
-/to-diag-trace-go
-/to-diag-trace-go.exe
-/to-diag-trace-go-*.exe
-/to-diag-trace-go-darwin-*
-/to-diag-trace-go-linux-*
-/to-diag-trace-go-windows-*
+/tm-template-go-26
+/tm-template-go-26.exe
+/tm-template-go-26-*.exe
+/tm-template-go-26-darwin-*
+/tm-template-go-26-linux-*
+/tm-template-go-26-windows-*
 
 # Go build & test artifacts
 *.test

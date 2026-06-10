@@ -1,16 +1,16 @@
 {
-  "name": "to-diag-trace-go-root",
+  "name": "tm-template-go-26-root",
   "version": "1.0.0",
   "description": "Go tool to collect diagnostic traces",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maxzz/to-diag-trace-go.git"
+    "url": "git+https://github.com/maxzz/tm-template-go-26.git"
   },
   "bugs": {
-    "url": "https://github.com/maxzz/to-diag-trace-go/issues"
+    "url": "https://github.com/maxzz/tm-template-go-26/issues"
   },
-  "homepage": "https://github.com/maxzz/to-diag-trace-go#readme",
+  "homepage": "https://github.com/maxzz/tm-template-go-26#readme",
   "author": {
     "name": "Max Zakharzhevskiy",
     "email": "maxzz@msn.com"

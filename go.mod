@@ -1,4 +1,4 @@
-module to-diag-trace-go
+module tm-template-go-26
 
 go 1.22.0
 

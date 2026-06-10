@@ -2,7 +2,7 @@ package main
 
 import (
 	"embed"
-	"to-diag-trace-go/backend"
+	"tm-template-go-26/backend"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"

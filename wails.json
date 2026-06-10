@@ -1,6 +1,6 @@
 {
-  "name": "to-diag-trace-go",
-  "outputfilename": "to-diag-trace-go",
+  "name": "tm-template-go-26",
+  "outputfilename": "tm-template-go-26",
   "frontend:install": "pnpm install",
   "frontend:build": "pnpm run build",
   "frontend:dev:watcher": "pnpm run dev",
