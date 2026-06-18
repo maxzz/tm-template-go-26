@@ -1,3 +1,23 @@
+import { Toaster } from '@/ui/shadcn/sonner';
+import { AllDialogs } from './1-globals';
+import { Header } from '../1-header';
+import { MainBody } from '../2-main';
+import { Section3_Footer } from '../3-footer';
+
+export function App() {
+    return (<>
+        <Toaster />
+        <AllDialogs />
+        
+        <main className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]">
+            <Header />
+            <MainBody />
+            <Section3_Footer />
+        </main>
+    </>);
+}
+
+/*
 import { useEffect } from 'react';
 import { ToggleDevTools } from '../../wailsjs/go/backend/App';
 // import wailsLogo from './assets/wails.png';
@@ -38,9 +58,11 @@ export function App() {
                     <a href="https://wails.io" target="_blank">
                         <img src={wailsLogo} className="logo wails" alt="Wails logo" />
                     </a>
-                </div> */}
-            </footer>
+                </div> * /}
+                </footer>
 
-        </div>
-    );
-}
+                </div>
+            );
+        }
+        
+*/

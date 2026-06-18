@@ -1,5 +1,5 @@
 import { type HTMLAttributes, useEffect, useState } from "react";
-import { classNames } from "../classnames";
+import { classNames } from "@/utils";
 
 export function SpyTestAllSvgSymbols({ fontID = "svgfont", className, ...rest  }: { fontID?: string; } & HTMLAttributes<HTMLDivElement>) {
 
