@@ -42,8 +42,9 @@ export const welcomeLogoClasses = "size-36 drop-shadow-xl";
 function EnterButton() {
     const navigate = useSetAtom(navigateToPageAtom);
 
+    // Not transition-all: the page toggles `invisible` around the view transition, and a transitioned visibility blinks the button for a frame
     return (
-        <Button className="px-6 hover:bg-primary/90 rounded-full shadow-md" size="lg" onClick={() => navigate(MainPage.main)} type="button">
+        <Button className="px-6 hover:bg-primary/90 transition-[color,background-color,box-shadow,translate] rounded-full shadow-md" size="lg" onClick={() => navigate(MainPage.main)} type="button">
             Get started
         </Button>
     );
