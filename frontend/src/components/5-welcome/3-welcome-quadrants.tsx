@@ -1,7 +1,7 @@
 import { ViewTransition } from "react";
 import { classNames } from "@/utils";
-import { welcomeLogoClasses, WelcomeContent } from "./2-welcome-content";
-import { AppLogoImage } from "./3-app-logo";
+import { welcomeLogoClasses, WelcomeContent } from "./1-welcome-content";
+import { AppLogoImage } from "./2-app-logo";
 import { TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from "@/components/5-welcome/a-ui-app-page";
 
 /**

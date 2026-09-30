@@ -1,7 +1,10 @@
-import { type ReactNode, ViewTransition } from 'react';
-import { useAtomValue } from 'jotai';
-import { WelcomePage } from './1-welcome-page';
-import { MainPage, mainPageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from './a-ui-app-page';
+import { type ReactNode, useEffect, ViewTransition } from 'react';
+import { useAtom, useAtomValue } from 'jotai';
+import { classNames } from '@/utils';
+import { welcomeLogoClasses, WelcomeContent } from './1-welcome-content';
+import { AppLogo } from './2-app-logo';
+import { WelcomeQuadrants } from './3-welcome-quadrants';
+import { MainPage, mainPageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME, welcomeSplitAtom } from './a-ui-app-page';
 
 import './c-view-transitions.css';
 import "./c-welcome-bkg.css";
@@ -30,3 +33,37 @@ const mainEnter = { [TRANSITION_TYPE_TO_MAIN]: 'vt-main-reveal', default: 'none'
 const mainExit = { [TRANSITION_TYPE_TO_WELCOME]: 'vt-main-hide', default: 'none' };
 
 //---------------------------------------------------------------------------
+
+/**
+ * Returns a fragment on purpose: React plays enter/exit only for <ViewTransition>s that have
+ * no DOM element between them and the root of the inserted/removed tree, and here those must be
+ * the four quadrants. Must be rendered inside a positioned container (see AppPages).
+ */
+function WelcomePage() {
+    const [split, setSplit] = useAtom(welcomeSplitAtom);
+
+    // Normally the quadrants' onEnter joins the page when the transition finishes;
+    // this covers browsers without View Transitions and transitions that never start.
+    useEffect(
+        () => {
+            if (!split) {
+                return;
+            }
+
+            if (!("startViewTransition" in document)) {
+                setSplit(false);
+                return;
+            }
+
+            const timer = setTimeout(() => setSplit(false), 2000);
+            return () => clearTimeout(timer);
+        },
+        [split, setSplit]);
+
+    return (<>
+        {/* While split, the live page is hidden behind its quadrant copies; only the logo stays visible */}
+        <WelcomeContent className={classNames(split && "invisible")} logo={<AppLogo className={classNames(welcomeLogoClasses, "visible")} />} />
+
+        {split && <WelcomeQuadrants onJoin={() => setSplit(false)} />}
+    </>);
+}

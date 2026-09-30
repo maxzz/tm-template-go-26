@@ -1,2 +1,2 @@
 export * from "./0-app-pages";
-export * from "./3-app-logo";
+export * from "./2-app-logo";
