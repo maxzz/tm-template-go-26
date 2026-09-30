@@ -9,6 +9,7 @@ const STORAGE_ID = `${STORE_KEY}__${STORE_VER}`;
 export interface AppSettings {
     theme: ThemeMode;            // Theme mode
     showFooter: boolean;         // Show footer in main layout
+    skipWelcome: boolean;        // Skip the Welcome page on next launches and open the main page directly
     panelSizes: PanelSizes;      // ResizablePanelGroup panel sizes
     expandedSections: string[];  // Expanded accordion sections by name
 }
@@ -16,6 +17,7 @@ export interface AppSettings {
 const DEFAULT_SETTINGS: AppSettings = {
     theme: 'light',
     showFooter: true,
+    skipWelcome: false,
     panelSizes: getValidPanelSizes(),
     expandedSections: ['resizable-panels', 'pierre-trees'],
 };

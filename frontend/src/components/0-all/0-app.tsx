@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { motion } from 'motion/react';
+import { appSettings } from '@/store/1-ui-settings';
+import { WelcomePage, WELCOME_DURATION, WELCOME_EASE } from '../0-welcome';
 import { Toaster } from '@/ui/shadcn/sonner';
 import { AllDialogs } from './1-globals';
 import { Header } from '../1-header';
@@ -5,15 +9,23 @@ import { MainBody } from '../2-main';
 import { Section3_Footer } from '../3-footer';
 
 export function App() {
+    const [showWelcome, setShowWelcome] = useState(() => !appSettings.skipWelcome);
+    const [revealed, setRevealed] = useState(() => appSettings.skipWelcome);
     return (<>
         <Toaster />
         <AllDialogs />
+        {showWelcome && <WelcomePage onOpening={() => setRevealed(true)} onDone={() => setShowWelcome(false)} />}
         
-        <main className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]">
+        <motion.main
+            className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]"
+            initial={false}
+            animate={revealed ? { scale: 1, opacity: 1, filter: 'blur(0px)' } : { scale: 0.92, opacity: 0.4, filter: 'blur(6px)' }}
+            transition={{ duration: WELCOME_DURATION, ease: WELCOME_EASE }}
+        >
             <Header />
             <MainBody />
             <Section3_Footer />
-        </main>
+        </motion.main>
     </>);
 }
 
