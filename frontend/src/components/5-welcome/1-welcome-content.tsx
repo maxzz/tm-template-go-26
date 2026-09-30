@@ -10,7 +10,7 @@ import { Label } from "@/ui/shadcn/label";
 import { MainPage, APP_DESCRIPTION, APP_NAME, navigateToPageAtom } from "./a-ui-app-page";
 import { Section3_Footer } from "@/components/3-footer";
 
-/** The Welcome page layout, rendered by the page itself and by each of its quadrant copies. */
+/** The Welcome page layout, rendered by the page itself and by each of its piece copies. */
 export function WelcomeContent({ logo, className, ...rest }: { logo: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("min-h-dvh text-foreground welcome-bkg grid grid-rows-[1fr_auto_auto]", className)} {...rest}>

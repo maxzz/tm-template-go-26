@@ -2,7 +2,7 @@
  * Welcome page background: a dot + grid pattern over a radial wash that is light in the center
  * and darkens towards the edges. Colors derive from the theme's --primary, so changing the theme
  * recolors it; tweak the variables below to customize.
- * Patterns are centered, so the quadrant copies (same size as the page) line up pixel for pixel.
+ * Patterns are centered, so the piece copies (same size as the page) line up pixel for pixel.
  */
 .welcome-bkg {
     --welcome-center: color-mix(in oklab, var(--primary) 4%, white);
