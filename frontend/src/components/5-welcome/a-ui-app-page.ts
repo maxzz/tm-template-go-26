@@ -10,14 +10,14 @@ import { appSettings } from '../../store/1-ui-settings';
  * would not animate with <ViewTransition>. Jotai hooks are transition-compatible.
  */
 
-export const AppPage = {
+export const MainPage = {
     welcome: 'welcome',
     main: 'main',
 } as const;
 
-export type AppPage = typeof AppPage[keyof typeof AppPage];
+export type MainPage = typeof MainPage[keyof typeof MainPage];
 
-export const appPageAtom = atom<AppPage>(appSettings.showWelcome ? AppPage.welcome : AppPage.main);
+export const mainPageAtom = atom<MainPage>(appSettings.showWelcome ? MainPage.welcome : MainPage.main);
 
 //---------------------------------------------------------------------------
 
@@ -30,9 +30,9 @@ export const appPageAtom = atom<AppPage>(appSettings.showWelcome ? AppPage.welco
  * callback that wraps it. There is no Jotai <Provider>, so the default store is
  * the one the hooks read.
  */
-export const navigateToPageAtom = atom(null, (_get, _set, page: AppPage) => {
+export const navigateToPageAtom = atom(null, (_get, _set, page: MainPage) => {
     const store = getDefaultStore();
-    const toMain = page === AppPage.main;
+    const toMain = page === MainPage.main;
 
     // The old-page snapshot is taken from the DOM as it is when the transition starts,
     // so the quadrants must be committed synchronously before it (a sync update never animates).
@@ -46,7 +46,7 @@ export const navigateToPageAtom = atom(null, (_get, _set, page: AppPage) => {
             if (!toMain) {
                 store.set(welcomeSplitAtom, true); // the Welcome page mounts split; it joins itself when the transition finishes
             }
-            store.set(appPageAtom, page);
+            store.set(mainPageAtom, page);
         }
     );
 });

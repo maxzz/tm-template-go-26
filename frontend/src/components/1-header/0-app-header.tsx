@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { AppPage, APP_NAME, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
+import { MainPage, APP_NAME, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
 import { AppLogo } from "@/components/5-welcome/3-app-logo";
 import { ButtonThemeToggle } from "./8-btn-theme-toggle";
 
@@ -10,7 +10,7 @@ export function Header() {
         <header className="px-3 py-2 bg-background border-b border-border flex items-center justify-between">
             <button
                 className="-ml-1 px-1 py-0.5 text-sm font-semibold hover:bg-muted rounded flex items-center gap-2 cursor-pointer"
-                onClick={() => navigate(AppPage.welcome)}
+                onClick={() => navigate(MainPage.welcome)}
                 title="Show the Welcome page"
                 type="button"
             >

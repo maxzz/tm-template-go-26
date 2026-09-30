@@ -7,7 +7,7 @@ import { Button } from "@/ui/shadcn/button";
 import { Checkbox } from "@/ui/shadcn/checkbox";
 import { Label } from "@/ui/shadcn/label";
 
-import { AppPage, APP_DESCRIPTION, APP_NAME, navigateToPageAtom } from "./a-ui-app-page";
+import { MainPage, APP_DESCRIPTION, APP_NAME, navigateToPageAtom } from "./a-ui-app-page";
 import { Section3_Footer } from "@/components/3-footer";
 
 /** The Welcome page layout, rendered by the page itself and by each of its quadrant copies. */
@@ -43,7 +43,7 @@ function EnterButton() {
     const navigate = useSetAtom(navigateToPageAtom);
 
     return (
-        <Button className="px-6 hover:bg-primary/90 rounded-full shadow-md" size="lg" onClick={() => navigate(AppPage.main)} type="button">
+        <Button className="px-6 hover:bg-primary/90 rounded-full shadow-md" size="lg" onClick={() => navigate(MainPage.main)} type="button">
             Get started
         </Button>
     );
