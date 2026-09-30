@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
-import { AppPage, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
-import { AppLogo, APP_NAME } from "@/components/5-welcome";
+import { AppPage, APP_NAME, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
+import { AppLogo } from "@/components/5-welcome/3-app-logo";
 import { ButtonThemeToggle } from "./8-btn-theme-toggle";
 
 export function Header() {

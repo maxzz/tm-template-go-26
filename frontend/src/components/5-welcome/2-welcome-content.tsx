@@ -1,14 +1,14 @@
 import { type HTMLAttributes, type ReactNode, useId } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/1-ui-settings";
-import { AppPage, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
 import { classNames } from "@/utils";
+import { appSettings } from "@/store/1-ui-settings";
 import { Button } from "@/ui/shadcn/button";
 import { Checkbox } from "@/ui/shadcn/checkbox";
 import { Label } from "@/ui/shadcn/label";
+
+import { AppPage, APP_DESCRIPTION, APP_NAME, navigateToPageAtom } from "./a-ui-app-page";
 import { Section3_Footer } from "@/components/3-footer";
-import { APP_DESCRIPTION, APP_NAME } from "./3-app-logo";
 
 /** The Welcome page layout, rendered by the page itself and by each of its quadrant copies. */
 export function WelcomeContent({ logo, className, ...rest }: { logo: ReactNode; } & HTMLAttributes<HTMLDivElement>) {

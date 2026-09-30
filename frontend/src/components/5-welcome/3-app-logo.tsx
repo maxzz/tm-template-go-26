@@ -1,10 +1,7 @@
 import { type ImgHTMLAttributes, ViewTransition } from "react";
 import { classNames } from "@/utils";
 import appLogoUrl from "@/assets/app-logo.svg";
-
-export const APP_NAME = "Template App";
-
-export const APP_DESCRIPTION = "A starting point for Wails desktop apps: Go backend, React frontend, Tailwind CSS and shadcn/ui. Replace this text, the name, and the logo with your own.";
+import { APP_NAME } from "./a-ui-app-page";
 
 /**
  * Temporary app logo. The same component is rendered on the Welcome page (large)

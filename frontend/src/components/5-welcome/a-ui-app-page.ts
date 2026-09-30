@@ -22,14 +22,6 @@ export const appPageAtom = atom<AppPage>(appSettings.showWelcome ? AppPage.welco
 //---------------------------------------------------------------------------
 
 /**
- * While true, the Welcome page is drawn as four quadrant copies, each with its own
- * <ViewTransition>, so the page can split and fly out into (or in from) the four corners.
- */
-export const welcomeSplitAtom = atom(false);
-
-//---------------------------------------------------------------------------
-
-/**
  * Navigate between pages inside a transition so <ViewTransition> boundaries animate.
  * Call with useSetAtom(navigateToPageAtom).
  *
@@ -61,5 +53,18 @@ export const navigateToPageAtom = atom(null, (_get, _set, page: AppPage) => {
 
 export const TRANSITION_TYPE_TO_MAIN = 'nav-to-main';
 export const TRANSITION_TYPE_TO_WELCOME = 'nav-to-welcome';
+
+//---------------------------------------------------------------------------
+/**
+ * While true, the Welcome page is drawn as four quadrant copies, each with its own
+ * <ViewTransition>, so the page can split and fly out into (or in from) the four corners.
+ */
+export const welcomeSplitAtom = atom(false);
+
+//---------------------------------------------------------------------------
+
+export const APP_NAME = "Template App";
+
+export const APP_DESCRIPTION = "A starting point for Wails desktop apps: Go backend, React frontend, Tailwind CSS and shadcn/ui. Replace this text, the name, and the logo with your own.";
 
 //---------------------------------------------------------------------------
