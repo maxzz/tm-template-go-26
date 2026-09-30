@@ -8,6 +8,7 @@ const STORAGE_ID = `${STORE_KEY}__${STORE_VER}`;
 
 export interface AppSettings {
     theme: ThemeMode;            // Theme mode
+    showWelcome: boolean;        // Show the Welcome page at startup
     showFooter: boolean;         // Show footer in main layout
     panelSizes: PanelSizes;      // ResizablePanelGroup panel sizes
     expandedSections: string[];  // Expanded accordion sections by name
@@ -15,6 +16,7 @@ export interface AppSettings {
 
 const DEFAULT_SETTINGS: AppSettings = {
     theme: 'light',
+    showWelcome: true,
     showFooter: true,
     panelSizes: getValidPanelSizes(),
     expandedSections: ['resizable-panels', 'pierre-trees'],
