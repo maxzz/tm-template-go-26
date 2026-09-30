@@ -1,0 +1,128 @@
+/*
+ * View Transition classes used by <ViewTransition> boundaries in 0-app.tsx and 5-welcome/.
+ * React sets `view-transition-class` on the element, so pseudo-elements are matched by class.
+ * Stacking: main page snapshot < welcome quadrants < shared logo.
+ */
+
+/* Welcome -> Main: the Welcome page splits into four quarters that fly out to the corners, revealing the main page */
+
+::view-transition-group(.vt-welcome-quad) {
+    z-index: 1;
+}
+
+::view-transition-old(.vt-welcome-quad-out-tl),
+::view-transition-new(.vt-welcome-quad-in-tl) {
+    --vt-quad-x: -1;
+    --vt-quad-y: -1;
+}
+
+::view-transition-old(.vt-welcome-quad-out-tr),
+::view-transition-new(.vt-welcome-quad-in-tr) {
+    --vt-quad-x: 1;
+    --vt-quad-y: -1;
+}
+
+::view-transition-old(.vt-welcome-quad-out-br),
+::view-transition-new(.vt-welcome-quad-in-br) {
+    --vt-quad-x: 1;
+    --vt-quad-y: 1;
+}
+
+::view-transition-old(.vt-welcome-quad-out-bl),
+::view-transition-new(.vt-welcome-quad-in-bl) {
+    --vt-quad-x: -1;
+    --vt-quad-y: 1;
+}
+
+@keyframes vt-welcome-quad-fly-out {
+    70% {
+        opacity: 1;
+    }
+
+    to {
+        translate: calc(var(--vt-quad-x) * 100%) calc(var(--vt-quad-y) * 100%);
+        scale: 1.15;
+        opacity: 0;
+    }
+}
+
+@keyframes vt-welcome-quad-fly-in {
+    from {
+        translate: calc(var(--vt-quad-x) * 100%) calc(var(--vt-quad-y) * 100%);
+        scale: 1.15;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+}
+
+::view-transition-old(.vt-welcome-quad) {
+    animation: 750ms cubic-bezier(0.65, 0, 0.35, 1) both vt-welcome-quad-fly-out;
+}
+
+::view-transition-new(.vt-welcome-quad) {
+    animation: 700ms cubic-bezier(0.16, 1, 0.3, 1) both vt-welcome-quad-fly-in;
+}
+
+/* Main page: rises from behind the opening Welcome page, sinks back when the quarters close over it */
+
+@keyframes vt-main-reveal {
+    from {
+        opacity: 0;
+        scale: 0.94;
+    }
+}
+
+@keyframes vt-main-hide {
+    to {
+        opacity: 0;
+        scale: 0.94;
+    }
+}
+
+::view-transition-new(.vt-main-reveal) {
+    animation: 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both vt-main-reveal;
+}
+
+::view-transition-old(.vt-main-hide) {
+    animation: 500ms ease-in both vt-main-hide;
+}
+
+/* Shared-element logo: morphs between the Welcome page and the header, above both pages.
+   Slow start, fast middle, slow settle; a small pop halfway so it reads as a hand-off. */
+
+@keyframes vt-logo-pop {
+    50% {
+        scale: 1.2;
+    }
+}
+
+::view-transition-group(.vt-logo-share) {
+    --vt-logo-duration: 750ms;
+    z-index: 2;
+    animation-duration: var(--vt-logo-duration);
+    animation-timing-function: cubic-bezier(0.77, 0, 0.23, 1);
+}
+
+::view-transition-image-pair(.vt-logo-share) {
+    animation: var(--vt-logo-duration) ease-in-out both vt-logo-pop;
+}
+
+::view-transition-old(.vt-logo-share),
+::view-transition-new(.vt-logo-share) {
+    height: 100%;
+    animation-duration: var(--vt-logo-duration);
+}
+
+/* Respect user preference */
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}

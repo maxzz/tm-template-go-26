@@ -1,0 +1,73 @@
+import { type HTMLAttributes, type ReactNode, useId } from "react";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/1-ui-settings";
+import { AppPage, useNavigateToPage } from "@/store/3-ui-app-page";
+import { classNames } from "@/utils";
+import { Button } from "@/ui/shadcn/button";
+import { Checkbox } from "@/ui/shadcn/checkbox";
+import { Label } from "@/ui/shadcn/label";
+import { Section3_Footer } from "@/components/3-footer";
+import { APP_DESCRIPTION, APP_NAME } from "./1-app-logo";
+import "./8-welcome-bkg.css";
+
+type WelcomeContentProps = HTMLAttributes<HTMLDivElement> & {
+    logo: ReactNode;
+};
+
+/** The Welcome page layout, rendered by the page itself and by each of its quadrant copies. */
+export function WelcomeContent({ logo, className, ...rest }: WelcomeContentProps) {
+    return (
+        <div className={classNames("min-h-dvh text-foreground welcome-bkg grid grid-rows-[1fr_auto_auto]", className)} {...rest}>
+
+            <div className="px-6 pt-12 pb-8 text-center flex flex-col items-center justify-center gap-6">
+                {logo}
+
+                <div className="flex flex-col items-center gap-3">
+                    <h1 className="text-4xl font-heading font-semibold tracking-tight">
+                        {APP_NAME}
+                    </h1>
+                    <p className="max-w-md text-sm text-muted-foreground leading-relaxed">
+                        {APP_DESCRIPTION}
+                    </p>
+                </div>
+
+                <EnterButton />
+            </div>
+
+            <DontShowAgainCheckbox />
+
+            <Section3_Footer className="welcome-footer" />
+        </div>
+    );
+}
+
+export const WELCOME_LOGO_CLASSES = "size-36 drop-shadow-xl";
+
+function EnterButton() {
+    const navigate = useNavigateToPage();
+
+    return (
+        <Button className="px-6 hover:bg-primary/90 rounded-full shadow-md" size="lg" onClick={() => navigate(AppPage.main)} type="button">
+            Get started
+        </Button>
+    );
+}
+
+function DontShowAgainCheckbox() {
+    const { showWelcome } = useSnapshot(appSettings);
+    const id = useId();
+
+    return (
+        <div className="mx-auto pb-2 flex items-center gap-2">
+            <Checkbox
+                className="bg-background/60"
+                id={id}
+                checked={!showWelcome}
+                onCheckedChange={(checked) => { appSettings.showWelcome = checked !== true; }}
+            />
+            <Label htmlFor={id} className="text-xs font-normal text-muted-foreground cursor-pointer">
+                Do not show the Welcome page at startup
+            </Label>
+        </div>
+    );
+}
