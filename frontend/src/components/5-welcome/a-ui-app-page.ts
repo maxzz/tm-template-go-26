@@ -35,7 +35,7 @@ export const navigateToPageAtom = atom(null, (_get, _set, page: MainPage) => {
     const toMain = page === MainPage.main;
 
     // The old-page snapshot is taken from the DOM as it is when the transition starts,
-    // so the quadrants must be committed synchronously before it (a sync update never animates).
+    // so the pieces must be committed synchronously before it (a sync update never animates).
     if (toMain) {
         flushSync(() => store.set(welcomeSplitAtom, true));
     }
@@ -56,8 +56,8 @@ export const TRANSITION_TYPE_TO_WELCOME = 'nav-to-welcome';
 
 //---------------------------------------------------------------------------
 /**
- * While true, the Welcome page is drawn as four quadrant copies, each with its own
- * <ViewTransition>, so the page can split and fly out into (or in from) the four corners.
+ * While true, the Welcome page is drawn as piece copies (four quarters or two sliding doors), each with its own
+ * <ViewTransition>, so the page can split and move out (or back in); see WelcomePieces.
  */
 export const welcomeSplitAtom = atom(false);
 

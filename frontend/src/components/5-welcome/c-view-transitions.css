@@ -2,6 +2,7 @@
  * View Transition classes used by <ViewTransition> boundaries in 0-app.tsx and 5-welcome/.
  * React sets `view-transition-class` on the element, so pseudo-elements are matched by class.
  * Stacking: main page snapshot < welcome quadrants < shared logo.
+ * The sliding-doors alternative lives in c-view-transitions-doors.css; the reduced-motion rule below covers both.
  */
 
  /*------------------------------------------------------------------------*/
