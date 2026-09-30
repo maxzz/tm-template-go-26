@@ -85,11 +85,11 @@
 /*------------------------------------------------------------------------*/
 
 ::view-transition-old(.vt-welcome-door) {
-    animation: 850ms linear both vt-welcome-door-open;
+    animation: 650ms linear both vt-welcome-door-open;
 }
 
 ::view-transition-new(.vt-welcome-door) {
-    animation: 800ms linear both vt-welcome-door-close;
+    animation: 720ms linear both vt-welcome-door-close;
 }
 
 /*------------------------------------------------------------------------*/
@@ -110,9 +110,9 @@
 }
 
 ::view-transition-new(.vt-main-doors-reveal) {
-    animation: 750ms cubic-bezier(0.3, 0, 0.2, 1) 120ms both vt-main-doors-reveal; /* waits out the unlatch */
+    animation: 580ms cubic-bezier(0.3, 0, 0.2, 1) 90ms both vt-main-doors-reveal; /* waits out the unlatch */
 }
 
 ::view-transition-old(.vt-main-doors-hide) {
-    animation: 650ms ease-in both vt-main-doors-hide;
+    animation: 580ms ease-in both vt-main-doors-hide;
 }
