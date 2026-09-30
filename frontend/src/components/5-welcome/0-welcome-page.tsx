@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useAtom } from "jotai";
-import { welcomeSplitAtom } from "@/store/3-ui-app-page";
+import { welcomeSplitAtom } from "@/components/5-welcome/a-ui-app-page";
 import { classNames } from "@/utils";
-import { AppLogo } from "./1-app-logo";
-import { WELCOME_LOGO_CLASSES, WelcomeContent } from "./3-welcome-content";
+import { AppLogo } from "./2-app-logo";
+import { WELCOME_LOGO_CLASSES, WelcomeContent } from "./1-welcome-content";
 import { WelcomeQuadrants } from "./4-welcome-quadrants";
+import './c-view-transitions.css';
 
 /**
  * Returns a fragment on purpose: React plays enter/exit only for <ViewTransition>s that have

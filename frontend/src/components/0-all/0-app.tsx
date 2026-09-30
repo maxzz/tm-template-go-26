@@ -1,13 +1,12 @@
 import { ViewTransition } from 'react';
 import { useAtomValue } from 'jotai';
 import { Toaster } from '@/ui/shadcn/sonner';
-import { AppPage, appPageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from '@/store/3-ui-app-page';
+import { AppPage, appPageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from '@/components/5-welcome/a-ui-app-page';
 import { AllDialogs } from './1-globals';
 import { Header } from '../1-header';
 import { MainBody } from '../2-main';
 import { Section3_Footer } from '../3-footer';
 import { WelcomePage } from '../5-welcome';
-import './2-view-transitions.css';
 
 export function App() {
     const page = useAtomValue(appPageAtom);

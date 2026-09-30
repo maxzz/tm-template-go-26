@@ -2,14 +2,14 @@ import { type HTMLAttributes, type ReactNode, useId } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/1-ui-settings";
-import { AppPage, navigateToPageAtom } from "@/store/3-ui-app-page";
+import { AppPage, navigateToPageAtom } from "@/components/5-welcome/a-ui-app-page";
 import { classNames } from "@/utils";
 import { Button } from "@/ui/shadcn/button";
 import { Checkbox } from "@/ui/shadcn/checkbox";
 import { Label } from "@/ui/shadcn/label";
 import { Section3_Footer } from "@/components/3-footer";
-import { APP_DESCRIPTION, APP_NAME } from "./1-app-logo";
-import "./8-welcome-bkg.css";
+import { APP_DESCRIPTION, APP_NAME } from "./2-app-logo";
+import "./c-welcome-bkg.css";
 
 type WelcomeContentProps = HTMLAttributes<HTMLDivElement> & {
     logo: ReactNode;

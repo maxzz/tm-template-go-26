@@ -1,8 +1,8 @@
 import { ViewTransition } from "react";
-import { TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from "@/store/3-ui-app-page";
+import { TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from "@/components/5-welcome/a-ui-app-page";
 import { classNames } from "@/utils";
-import { AppLogoImage } from "./1-app-logo";
-import { WELCOME_LOGO_CLASSES, WelcomeContent } from "./3-welcome-content";
+import { AppLogoImage } from "./2-app-logo";
+import { WELCOME_LOGO_CLASSES, WelcomeContent } from "./1-welcome-content";
 
 /**
  * Four inert copies of the Welcome page, each clipped to one quarter of it.
