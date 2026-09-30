@@ -38,38 +38,84 @@
 
 /*------------------------------------------------------------------------*/
 
+/* Mirror-symmetric tilt: tl/br turn one way, tr/bl the other */
+::view-transition-old(.vt-welcome-quad),
+::view-transition-new(.vt-welcome-quad) {
+    --vt-quad-tilt: calc(var(--vt-quad-x) * var(--vt-quad-y) * -9deg);
+}
+
+/* Anticipation: the quarters crouch (shrink, slightly pulled in) so thin cracks open along the seams,
+   then burst out past the corners, exaggerated with extra distance, growth and a tilt.
+   No tilt during the crouch: tilted quarters would overlap at the center and double the text. */
 @keyframes vt-welcome-quad-fly-out {
-    70% {
+    from {
+        translate: 0 0;
+        scale: 1;
+        rotate: 0deg;
+        animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+    }
+
+    24% {
+        translate: calc(var(--vt-quad-x) * -1%) calc(var(--vt-quad-y) * -1%);
+        scale: 0.95;
+        rotate: 0deg;
+        animation-timing-function: cubic-bezier(0.55, 0, 0.2, 1);
+    }
+
+    72% {
         opacity: 1;
     }
 
     to {
-        translate: calc(var(--vt-quad-x) * 100%) calc(var(--vt-quad-y) * 100%);
-        scale: 1.15;
+        translate: calc(var(--vt-quad-x) * 125%) calc(var(--vt-quad-y) * 125%);
+        scale: 1.3;
+        rotate: var(--vt-quad-tilt);
         opacity: 0;
     }
 }
 
+/* The quarters rush in tilted, straighten on impact and squash, rebound slightly (stretch), and settle. */
 @keyframes vt-welcome-quad-fly-in {
     from {
-        translate: calc(var(--vt-quad-x) * 100%) calc(var(--vt-quad-y) * 100%);
-        scale: 1.15;
+        translate: calc(var(--vt-quad-x) * 125%) calc(var(--vt-quad-y) * 125%);
+        scale: 1.3;
+        rotate: var(--vt-quad-tilt);
         opacity: 0;
+        animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.4);
     }
 
-    30% {
+    35% {
         opacity: 1;
+    }
+
+    58% {
+        translate: calc(var(--vt-quad-x) * -1.5%) calc(var(--vt-quad-y) * -1.5%);
+        scale: 0.96;
+        rotate: 0deg;
+        animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1);
+    }
+
+    80% {
+        translate: calc(var(--vt-quad-x) * 0.5%) calc(var(--vt-quad-y) * 0.5%);
+        scale: 1.01;
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 1;
+        rotate: 0deg;
     }
 }
 
 /*------------------------------------------------------------------------*/
 
 ::view-transition-old(.vt-welcome-quad) {
-    animation: 750ms cubic-bezier(0.65, 0, 0.35, 1) both vt-welcome-quad-fly-out;
+    animation: 900ms linear both vt-welcome-quad-fly-out;
 }
 
 ::view-transition-new(.vt-welcome-quad) {
-    animation: 700ms cubic-bezier(0.16, 1, 0.3, 1) both vt-welcome-quad-fly-in;
+    animation: 850ms linear both vt-welcome-quad-fly-in;
 }
 
 /*------------------------------------------------------------------------*/
@@ -92,7 +138,7 @@
 /*------------------------------------------------------------------------*/
 
 ::view-transition-new(.vt-main-reveal) {
-    animation: 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both vt-main-reveal;
+    animation: 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms both vt-main-reveal; /* waits out the quarters' crouch */
 }
 
 ::view-transition-old(.vt-main-hide) {
