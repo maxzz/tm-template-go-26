@@ -8,15 +8,10 @@ import { Button } from "@/ui/shadcn/button";
 import { Checkbox } from "@/ui/shadcn/checkbox";
 import { Label } from "@/ui/shadcn/label";
 import { Section3_Footer } from "@/components/3-footer";
-import { APP_DESCRIPTION, APP_NAME } from "./2-app-logo";
-import "./c-welcome-bkg.css";
-
-type WelcomeContentProps = HTMLAttributes<HTMLDivElement> & {
-    logo: ReactNode;
-};
+import { APP_DESCRIPTION, APP_NAME } from "./3-app-logo";
 
 /** The Welcome page layout, rendered by the page itself and by each of its quadrant copies. */
-export function WelcomeContent({ logo, className, ...rest }: WelcomeContentProps) {
+export function WelcomeContent({ logo, className, ...rest }: { logo: ReactNode; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("min-h-dvh text-foreground welcome-bkg grid grid-rows-[1fr_auto_auto]", className)} {...rest}>
 
@@ -42,7 +37,7 @@ export function WelcomeContent({ logo, className, ...rest }: WelcomeContentProps
     );
 }
 
-export const WELCOME_LOGO_CLASSES = "size-36 drop-shadow-xl";
+export const welcomeLogoClasses = "size-36 drop-shadow-xl";
 
 function EnterButton() {
     const navigate = useSetAtom(navigateToPageAtom);
@@ -59,14 +54,14 @@ function DontShowAgainCheckbox() {
     const id = useId();
 
     return (
-        <div className="mx-auto pb-2 flex items-center gap-2">
+        <div className="mx-auto pb-2 flex items-center gap-1">
             <Checkbox
-                className="bg-background/60"
+                className="size-6 bg-background/60 scale-65"
                 id={id}
                 checked={!showWelcome}
                 onCheckedChange={(checked) => { appSettings.showWelcome = checked !== true; }}
             />
-            <Label htmlFor={id} className="text-xs font-normal text-muted-foreground cursor-pointer">
+            <Label htmlFor={id} className="text-[0.65rem] font-normal text-muted-foreground cursor-pointer">
                 Do not show the Welcome page at startup
             </Label>
         </div>

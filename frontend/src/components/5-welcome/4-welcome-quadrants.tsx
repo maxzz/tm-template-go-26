@@ -1,8 +1,8 @@
 import { ViewTransition } from "react";
-import { TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from "@/components/5-welcome/a-ui-app-page";
 import { classNames } from "@/utils";
-import { AppLogoImage } from "./2-app-logo";
-import { WELCOME_LOGO_CLASSES, WelcomeContent } from "./1-welcome-content";
+import { welcomeLogoClasses, WelcomeContent } from "./2-welcome-content";
+import { AppLogoImage } from "./3-app-logo";
+import { TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from "@/components/5-welcome/a-ui-app-page";
 
 /**
  * Four inert copies of the Welcome page, each clipped to one quarter of it.
@@ -22,7 +22,7 @@ export function WelcomeQuadrants({ onJoin }: { onJoin: () => void; }) {
             >
                 <div className={classNames("absolute w-1/2 h-1/2 overflow-hidden", anchor)} aria-hidden>
                     <div className={classNames("absolute w-[200%] h-[200%]", anchor)}>
-                        <WelcomeContent className="h-full" logo={<AppLogoImage className={classNames(WELCOME_LOGO_CLASSES, "invisible")} />} inert />
+                        <WelcomeContent className="h-full" logo={<AppLogoImage className={classNames(welcomeLogoClasses, "invisible")} />} inert />
                     </div>
                 </div>
             </ViewTransition>

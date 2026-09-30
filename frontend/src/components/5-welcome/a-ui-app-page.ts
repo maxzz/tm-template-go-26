@@ -19,14 +19,15 @@ export type AppPage = typeof AppPage[keyof typeof AppPage];
 
 export const appPageAtom = atom<AppPage>(appSettings.showWelcome ? AppPage.welcome : AppPage.main);
 
+//---------------------------------------------------------------------------
+
 /**
  * While true, the Welcome page is drawn as four quadrant copies, each with its own
  * <ViewTransition>, so the page can split and fly out into (or in from) the four corners.
  */
 export const welcomeSplitAtom = atom(false);
 
-export const TRANSITION_TYPE_TO_MAIN = 'nav-to-main';
-export const TRANSITION_TYPE_TO_WELCOME = 'nav-to-welcome';
+//---------------------------------------------------------------------------
 
 /**
  * Navigate between pages inside a transition so <ViewTransition> boundaries animate.
@@ -57,3 +58,8 @@ export const navigateToPageAtom = atom(null, (_get, _set, page: AppPage) => {
         }
     );
 });
+
+export const TRANSITION_TYPE_TO_MAIN = 'nav-to-main';
+export const TRANSITION_TYPE_TO_WELCOME = 'nav-to-welcome';
+
+//---------------------------------------------------------------------------

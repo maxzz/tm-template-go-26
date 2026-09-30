@@ -1,42 +1,24 @@
-import { ViewTransition } from 'react';
-import { useAtomValue } from 'jotai';
 import { Toaster } from '@/ui/shadcn/sonner';
-import { AppPage, appPageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from '@/components/5-welcome/a-ui-app-page';
 import { AllDialogs } from './1-globals';
+import { AppPages } from '../5-welcome';
 import { Header } from '../1-header';
 import { MainBody } from '../2-main';
 import { Section3_Footer } from '../3-footer';
-import { WelcomePage } from '../5-welcome';
 
 export function App() {
-    const page = useAtomValue(appPageAtom);
-
     return (<>
         <Toaster />
         <AllDialogs />
 
-        {/* Stays mounted across pages: a DOM element above the pages' <ViewTransition>s must not be part of the switch */}
-        <div className="relative">
-            {page === AppPage.welcome
-                ? <WelcomePage />
-                : (
-                    <ViewTransition key={AppPage.main} enter={mainEnter} exit={mainExit}>
-                        <main className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]">
-                            <Header />
-                            <MainBody />
-                            <Section3_Footer />
-                        </main>
-                    </ViewTransition>
-                )
-            }
-        </div>
+        <AppPages>
+            <main className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]">
+                <Header />
+                <MainBody />
+                <Section3_Footer />
+            </main>
+        </AppPages>
     </>);
 }
-
-// View Transition classes (see 2-view-transitions.css), selected by the transition type set in navigateToPageAtom
-
-const mainEnter = { [TRANSITION_TYPE_TO_MAIN]: 'vt-main-reveal', default: 'none' };
-const mainExit = { [TRANSITION_TYPE_TO_WELCOME]: 'vt-main-hide', default: 'none' };
 
 /*
 import { useEffect } from 'react';

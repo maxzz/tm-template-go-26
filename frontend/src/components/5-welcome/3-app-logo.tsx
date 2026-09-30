@@ -19,11 +19,11 @@ export function AppLogo(props: ImgHTMLAttributes<HTMLImageElement>) {
     );
 }
 
+const APP_LOGO_VT_NAME = "app-logo";
+
 /** The logo artwork without a view transition, for decorative copies. */
 export function AppLogoImage({ className, alt = `${APP_NAME} logo`, ...rest }: ImgHTMLAttributes<HTMLImageElement>) {
     return (
         <img src={appLogoUrl} alt={alt} draggable={false} className={classNames("select-none object-contain", className)} {...rest} />
     );
 }
-
-const APP_LOGO_VT_NAME = "app-logo";
