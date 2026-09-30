@@ -1,7 +1,8 @@
 import { type HTMLAttributes, type ReactNode, useId } from "react";
+import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/1-ui-settings";
-import { AppPage, useNavigateToPage } from "@/store/3-ui-app-page";
+import { AppPage, navigateToPageAtom } from "@/store/3-ui-app-page";
 import { classNames } from "@/utils";
 import { Button } from "@/ui/shadcn/button";
 import { Checkbox } from "@/ui/shadcn/checkbox";
@@ -44,7 +45,7 @@ export function WelcomeContent({ logo, className, ...rest }: WelcomeContentProps
 export const WELCOME_LOGO_CLASSES = "size-36 drop-shadow-xl";
 
 function EnterButton() {
-    const navigate = useNavigateToPage();
+    const navigate = useSetAtom(navigateToPageAtom);
 
     return (
         <Button className="px-6 hover:bg-primary/90 rounded-full shadow-md" size="lg" onClick={() => navigate(AppPage.main)} type="button">

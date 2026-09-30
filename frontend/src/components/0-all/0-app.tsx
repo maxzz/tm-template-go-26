@@ -34,7 +34,7 @@ export function App() {
     </>);
 }
 
-// View Transition classes (see 2-view-transitions.css), selected by the transition type set in useNavigateToPage()
+// View Transition classes (see 2-view-transitions.css), selected by the transition type set in navigateToPageAtom
 
 const mainEnter = { [TRANSITION_TYPE_TO_MAIN]: 'vt-main-reveal', default: 'none' };
 const mainExit = { [TRANSITION_TYPE_TO_WELCOME]: 'vt-main-hide', default: 'none' };

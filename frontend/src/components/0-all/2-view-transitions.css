@@ -4,6 +4,8 @@
  * Stacking: main page snapshot < welcome quadrants < shared logo.
  */
 
+ /*------------------------------------------------------------------------*/
+
 /* Welcome -> Main: the Welcome page splits into four quarters that fly out to the corners, revealing the main page */
 
 ::view-transition-group(.vt-welcome-quad) {
@@ -34,6 +36,8 @@
     --vt-quad-y: 1;
 }
 
+/*------------------------------------------------------------------------*/
+
 @keyframes vt-welcome-quad-fly-out {
     70% {
         opacity: 1;
@@ -58,6 +62,8 @@
     }
 }
 
+/*------------------------------------------------------------------------*/
+
 ::view-transition-old(.vt-welcome-quad) {
     animation: 750ms cubic-bezier(0.65, 0, 0.35, 1) both vt-welcome-quad-fly-out;
 }
@@ -66,6 +72,7 @@
     animation: 700ms cubic-bezier(0.16, 1, 0.3, 1) both vt-welcome-quad-fly-in;
 }
 
+/*------------------------------------------------------------------------*/
 /* Main page: rises from behind the opening Welcome page, sinks back when the quarters close over it */
 
 @keyframes vt-main-reveal {
@@ -82,6 +89,8 @@
     }
 }
 
+/*------------------------------------------------------------------------*/
+
 ::view-transition-new(.vt-main-reveal) {
     animation: 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both vt-main-reveal;
 }
@@ -89,6 +98,8 @@
 ::view-transition-old(.vt-main-hide) {
     animation: 500ms ease-in both vt-main-hide;
 }
+
+/*------------------------------------------------------------------------*/
 
 /* Shared-element logo: morphs between the Welcome page and the header, above both pages.
    Slow start, fast middle, slow settle; a small pop halfway so it reads as a hand-off. */
@@ -116,6 +127,7 @@
     animation-duration: var(--vt-logo-duration);
 }
 
+/*------------------------------------------------------------------------*/
 /* Respect user preference */
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,9 +1,10 @@
-import { AppPage, useNavigateToPage } from "@/store/3-ui-app-page";
+import { useSetAtom } from "jotai";
+import { AppPage, navigateToPageAtom } from "@/store/3-ui-app-page";
 import { AppLogo, APP_NAME } from "@/components/5-welcome";
 import { ButtonThemeToggle } from "./8-btn-theme-toggle";
 
 export function Header() {
-    const navigate = useNavigateToPage();
+    const navigate = useSetAtom(navigateToPageAtom);
 
     return (
         <header className="px-3 py-2 bg-background border-b border-border flex items-center justify-between">
