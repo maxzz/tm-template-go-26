@@ -44,6 +44,10 @@ function WelcomePage() {
 
     // Normally the quadrants' onEnter joins the page when the transition finishes;
     // this covers browsers without View Transitions and transitions that never start.
+    //
+    // This stays an effect. A derived atom only recomputes when the atoms it reads change, and this code writes welcomeSplitAtom 
+    // back to false — immediately when the browser has no View Transitions API, or after two seconds when the quadrant join never fires. 
+    // Nothing in the store changes at that two-second mark, so a derivation would keep reporting split until some other update.
     useEffect(
         () => {
             if (!split) {
