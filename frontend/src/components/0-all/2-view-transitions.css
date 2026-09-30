@@ -1,0 +1,85 @@
+/*
+ * View Transition classes used by <ViewTransition> boundaries (see 0-app.tsx, 0-welcome/*).
+ * React sets `view-transition-class` on the element, so pseudo-elements are matched by class.
+ * Tweak --vt-duration / easing here to customize the whole navigation effect.
+ */
+
+:root {
+    --vt-duration: 900ms;
+    --vt-ease: cubic-bezier(0.77, 0, 0.23, 1);
+}
+
+/* Welcome -> Main: four quadrants of the Welcome page fly out to the four corners */
+
+@keyframes vt-corner-out {
+    to { translate: var(--dx) var(--dy); scale: 1.3; opacity: 0; }
+}
+
+@keyframes vt-corner-in {
+    from { translate: var(--dx) var(--dy); scale: 1.3; opacity: 0; }
+}
+
+::view-transition-group(.vt-corner-out),
+::view-transition-group(.vt-corner-in) {
+    z-index: 2;
+}
+
+::view-transition-old(.vt-corner-out) {
+    animation: var(--vt-duration) var(--vt-ease) both vt-corner-out;
+}
+
+::view-transition-new(.vt-corner-in) {
+    animation: var(--vt-duration) var(--vt-ease) both vt-corner-in;
+}
+
+::view-transition-old(.vt-tl), ::view-transition-new(.vt-tl) { --dx: -60vw; --dy: -60vh; }
+::view-transition-old(.vt-tr), ::view-transition-new(.vt-tr) { --dx: 60vw; --dy: -60vh; }
+::view-transition-old(.vt-br), ::view-transition-new(.vt-br) { --dx: 60vw; --dy: 60vh; }
+::view-transition-old(.vt-bl), ::view-transition-new(.vt-bl) { --dx: -60vw; --dy: 60vh; }
+
+/* Main page appears underneath the departing quadrants and settles into place */
+
+@keyframes vt-main-reveal {
+    from { opacity: 0; scale: 0.9; }
+}
+
+@keyframes vt-fade-out {
+    to { opacity: 0; }
+}
+
+::view-transition-new(.vt-main-reveal) {
+    animation: var(--vt-duration) var(--vt-ease) both vt-main-reveal;
+}
+
+::view-transition-old(.vt-main-exit) {
+    animation: var(--vt-duration) var(--vt-ease) both vt-fade-out;
+}
+
+/* Shared-element logo: morph position/size between the pages, above the page snapshots */
+
+::view-transition-group(.vt-logo-share) {
+    z-index: 3;
+    animation-duration: var(--vt-duration);
+    animation-timing-function: var(--vt-ease);
+}
+
+::view-transition-old(.vt-logo-share),
+::view-transition-new(.vt-logo-share) {
+    animation: none;
+    mix-blend-mode: normal;
+    height: 100%;
+    overflow: clip;
+}
+
+::view-transition-old(.vt-logo-share) {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-image-pair(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}

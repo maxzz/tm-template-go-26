@@ -1,20 +1,22 @@
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/1-ui-settings";
-import { Checkbox } from "@/ui/shadcn/checkbox";
+import { AppPage, useNavigateToPage } from "@/store/4-ui-app-page-atoms";
+import { AppLogo, APP_NAME } from "../0-welcome";
 import { ButtonThemeToggle } from "./8-btn-theme-toggle";
 
 export function Header() {
-    const { skipWelcome } = useSnapshot(appSettings);
+    const navigate = useNavigateToPage();
     return (
         <header className="px-3 py-2 border-b border-border bg-background flex items-center justify-between">
-            <div>
-                tm-template-shadcn-26
-            </div>
-            <div className="flex items-center gap-3">
-                <label className="text-muted-foreground flex items-center gap-1.5 cursor-pointer" title="Start directly on the main page on next launch">
-                    <Checkbox checked={skipWelcome} onCheckedChange={(v) => { appSettings.skipWelcome = v === true; }} />
-                    Skip welcome page
-                </label>
+            <button
+                className="px-1 py-0.5 hover:bg-muted rounded flex items-center gap-2 cursor-pointer"
+                onClick={() => navigate(AppPage.welcome)}
+                title="Back to the welcome page"
+                type="button"
+            >
+                <AppLogo className="size-6" />
+                <span>{APP_NAME}</span>
+            </button>
+
+            <div className="flex items-center gap-2">
                 <ButtonThemeToggle />
             </div>
         </header>

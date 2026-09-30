@@ -1,34 +1,38 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { appSettings } from '@/store/1-ui-settings';
-import { WelcomePage, WELCOME_DURATION, WELCOME_EASE } from '../0-welcome';
+import { ViewTransition } from 'react';
+import { useAtomValue } from 'jotai';
+import { AppPage, pageAtom, TRANSITION_TYPE_TO_MAIN, TRANSITION_TYPE_TO_WELCOME } from '@/store/4-ui-app-page-atoms';
+import { WelcomePage } from '../0-welcome';
 import { Toaster } from '@/ui/shadcn/sonner';
 import { AllDialogs } from './1-globals';
 import { Header } from '../1-header';
 import { MainBody } from '../2-main';
 import { Section3_Footer } from '../3-footer';
+import './2-view-transitions.css';
 
 export function App() {
-    const [showWelcome, setShowWelcome] = useState(() => !appSettings.skipWelcome);
-    const [revealed, setRevealed] = useState(() => appSettings.skipWelcome);
+    const page = useAtomValue(pageAtom);
     return (<>
         <Toaster />
         <AllDialogs />
-        {showWelcome && <WelcomePage onOpening={() => setRevealed(true)} onDone={() => setShowWelcome(false)} />}
-        
-        <motion.main
-            className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]"
-            initial={false}
-            animate={revealed ? { scale: 1, opacity: 1, filter: 'blur(0px)' } : { scale: 0.92, opacity: 0.4, filter: 'blur(6px)' }}
-            transition={{ duration: WELCOME_DURATION, ease: WELCOME_EASE }}
-        >
-            <Header />
-            <MainBody />
-            <Section3_Footer />
-        </motion.main>
+
+        {page === AppPage.welcome
+            ? <WelcomePage key={AppPage.welcome} />
+            : (
+                <ViewTransition key={AppPage.main} enter={mainEnter} exit={mainExit}>
+                    <main className="min-h-screen text-xs bg-background grid grid-rows-[auto_1fr_auto]">
+                        <Header />
+                        <MainBody />
+                        <Section3_Footer />
+                    </main>
+                </ViewTransition>
+            )
+        }
     </>);
 }
 
+// Classes are defined in 2-view-transitions.css; the Welcome page quadrants define their own (see 0-welcome)
+const mainEnter = { [TRANSITION_TYPE_TO_MAIN]: 'vt-main-reveal', default: 'none' };
+const mainExit = { [TRANSITION_TYPE_TO_WELCOME]: 'vt-main-exit', default: 'none' };
 /*
 import { useEffect } from 'react';
 import { ToggleDevTools } from '../../wailsjs/go/backend/App';
